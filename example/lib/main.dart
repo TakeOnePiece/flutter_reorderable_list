@@ -45,7 +45,7 @@ enum DraggingMode {
 class _MyHomePageState extends State<MyHomePage> {
   List<ItemData> _items;
   _MyHomePageState() {
-    _items = List();
+    _items = [];
     for (int i = 0; i < 500; ++i) {
       String label = "List item $i";
       if (i == 5) {
@@ -111,14 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       _draggingMode = mode;
                     });
                   },
-                  itemBuilder: (BuildContext context) =>
-                      <PopupMenuItem<DraggingMode>>[
+                  itemBuilder: (BuildContext context) => <PopupMenuItem<DraggingMode>>[
+                    const PopupMenuItem<DraggingMode>(value: DraggingMode.iOS, child: Text('iOS-like dragging')),
                     const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.iOS,
-                        child: Text('iOS-like dragging')),
-                    const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.Android,
-                        child: Text('Android-like dragging')),
+                        value: DraggingMode.Android, child: Text('Android-like dragging')),
                   ],
                 ),
               ],
@@ -129,8 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             SliverPadding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom),
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
@@ -168,8 +163,7 @@ class Item extends StatelessWidget {
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(color: Color(0xD0FFFFFF));
     } else {
@@ -213,10 +207,8 @@ class Item extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                       child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-                    child: Text(data.title,
-                        style: Theme.of(context).textTheme.subtitle1),
+                    padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
+                    child: Text(data.title, style: Theme.of(context).textTheme.subtitle1),
                   )),
                   // Triggers the reordering
                   dragHandle,
